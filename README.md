@@ -28,5 +28,8 @@ This will show bracket of semi final and final game.
 import { Bracket } from 'react-simple-bracket';
 import { render } from 'react-dom';
 
-render(<Bracket games={game}/>, document.getElementById('app'));
+render(
+  <Bracket games={game} header={["Semi", "Final"]} />, 
+  document.getElementById('app')
+);
 ```
