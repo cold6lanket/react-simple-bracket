@@ -36,7 +36,7 @@ const game = {
   
   const example = [
     [game, game1, game2, game3],
-    //[game, game],
+    [game, game],
     [game4, game5],
     [game6]
   ];

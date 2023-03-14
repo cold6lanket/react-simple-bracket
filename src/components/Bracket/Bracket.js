@@ -1,28 +1,7 @@
-import React, { useRef, useMemo, useState } from "react";
+import React, { Fragment, useMemo, useState } from "react";
+import PropTypes from "prop-types";
 import { Slot } from "../Slot";
-
-const calculateVerticalStartingPoint = (columnIndex, height) => {
-  return 2 ** columnIndex * (height / 2) - height / 2;
-};
-
-const columnIncrement = (columnIndex, height) => {
-  return 2 ** columnIndex * height;
-};
-
-const calculateHeightIncrease = (columnIndex, rowIndex, height) => {
-  return columnIncrement(columnIndex, height) * rowIndex;
-};
-
-const calculateVerticalPositioning = ({
-  rowIdx,
-  columnIdx,
-  rowHeight: height = 50
-}) => {
-  return (
-    calculateHeightIncrease(columnIdx, rowIdx, height) +
-    calculateVerticalStartingPoint(columnIdx, height)
-  );
-};
+import { calculateVerticalPositioning } from "../../utils";
 
 export function Bracket({
   games = [],
@@ -34,10 +13,8 @@ export function Bracket({
   renderSlot = undefined,
   header = []
 }) {
-  // some logic here...
-  // const slotRef = useRef(null);
   const [hoveredItem, setHoveredItem] = useState(false);
-  const bracketHeight = slotStyle.height * games[0].length + 20;
+  const bracketHeight = games.length > 0 ? slotStyle.height * games[0].length + 20 : 0;
 
   const topPositions = useMemo(() => {
     const result = [];
@@ -66,14 +43,12 @@ export function Bracket({
     return result;
   }, [games]);
 
-  //console.log(topPositions);
-
   return (
     <div style={{ display: "flex", gap: slotStyle.gap, height: bracketHeight }}>
       {games.map((column, columnIdx) => {
         return (
-          <div>
-            {header.length > 0 && <div>{header[columnIdx]}</div>}
+          <div key={`${columnIdx}`}>
+            {header.length > 0 && <div style={{textAlign: "center"}}>{header[columnIdx] || "Header"}</div>}
             <br />
             <div
               style={{ position: "relative", width: slotStyle.width }}
@@ -92,9 +67,8 @@ export function Bracket({
                   (top - connectorStart + slotStyle.height / 2) * 2;
 
                 return (
-                  <>
+                  <Fragment key={`${columnIdx}-${rowIdx}`}>
                     <div
-                      key={rowIdx}
                       style={{
                         position: "absolute",
                         top: top + "px",
@@ -127,7 +101,6 @@ export function Bracket({
                           style={{
                             width: "5px",
                             height: lineHeight + "px",
-                            //color: "black",
                             position: "absolute",
                             top: connectorStart + "px",
                             left: "-19px",
@@ -137,7 +110,7 @@ export function Bracket({
                           }}
                         ></div>
                       ))}
-                  </>
+                  </Fragment>
                 );
               })}
             </div>
@@ -147,3 +120,10 @@ export function Bracket({
     </div>
   );
 }
+
+Bracket.propTypes = {
+  games: PropTypes.array,
+  slotStyle: PropTypes.object,
+  renderSlot: PropTypes.func,
+  header: PropTypes.array
+};
