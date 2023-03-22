@@ -2,6 +2,8 @@ import React, { Fragment, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import { Slot } from "../Slot";
 import { calculateVerticalPositioning } from "../../utils";
+//style
+import "./Bracket.css";
 
 export function Bracket({
   games = [],
@@ -44,14 +46,15 @@ export function Bracket({
   }, [games]);
 
   return (
-    <div style={{ display: "flex", gap: slotStyle.gap, height: bracketHeight }}>
+    <div className={"bracket"} style={{ gap: slotStyle.gap, height: bracketHeight }}>
       {games.map((column, columnIdx) => {
         return (
           <div key={`${columnIdx}`}>
-            {header.length > 0 && <div style={{textAlign: "center"}}>{header[columnIdx] || "Header"}</div>}
+            {header.length > 0 && <div className={"header"}>{header[columnIdx] || "Header"}</div>}
             <br />
             <div
-              style={{ position: "relative", width: slotStyle.width }}
+              className={"bracketCol"}
+              style={{ width: slotStyle.width }}
               key={columnIdx}
             >
               {column.map((row, rowIdx) => {
@@ -69,8 +72,8 @@ export function Bracket({
                 return (
                   <Fragment key={`${columnIdx}-${rowIdx}`}>
                     <div
+                      className={"slot"}
                       style={{
-                        position: "absolute",
                         top: top + "px",
                         maxHeight: slotStyle.height
                       }}
@@ -88,25 +91,17 @@ export function Bracket({
                     {columnIdx > 0 &&
                       (isEqualColumnLength ? (
                         <div
+                          className={"lineStraight"}
                           style={{
-                            position: "absolute",
                             top: top + slotStyle.height / 2,
-                            left: "-19px",
-                            width: "10px",
-                            borderTop: "1px solid black"
                           }}
                         ></div>
                       ) : (
                         <div
+                          className={"line"}
                           style={{
-                            width: "5px",
                             height: lineHeight + "px",
-                            position: "absolute",
                             top: connectorStart + "px",
-                            left: "-19px",
-                            borderTop: "1px solid black",
-                            borderRight: "1px solid black",
-                            borderBottom: "1px solid black"
                           }}
                         ></div>
                       ))}

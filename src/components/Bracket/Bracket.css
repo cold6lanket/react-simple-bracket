@@ -1,0 +1,31 @@
+.bracket{
+    display: flex;
+}
+
+.header{
+    text-align: center;
+}
+
+.bracketCol{
+    position: relative;
+}
+
+.slot{
+    position: absolute;
+}
+
+.lineStraight {
+    position: absolute;
+    left: -19px;
+    width: 10px;
+    border-top: 1px solid black;
+}
+
+.line {
+    position: absolute;
+    width: 5px;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    left: -19px;
+}

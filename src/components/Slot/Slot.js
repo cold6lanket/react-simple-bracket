@@ -1,25 +1,8 @@
 import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 import { getResultColor } from "../../utils";
-
-const slotWrapperStyle = {
-  width: 130,
-  border: "1px solid grey",
-  borderRadius: "2px"
-};
-
-const firstTeamStyle = {
-  display: "flex",
-  alignItems: "center",
-  borderBottom: "1px solid grey",
-  padding: "0 4px"
-};
-
-const secondTeamStyle = {
-  display: "flex",
-  alignItems: "center",
-  padding: "0 4px"
-};
+//style
+import "./Slot.css";
 
 export const Slot = forwardRef((props, ref) => {
   const {
@@ -39,10 +22,11 @@ export const Slot = forwardRef((props, ref) => {
     : { teamA: 0, teamB: 0 };
 
   return (
-    <div ref={ref} style={slotWrapperStyle}>
+    <div ref={ref} className="slot_wrapper">
       <div
+        className="slot_team"
         style={{
-          ...firstTeamStyle,
+          borderBottom: "1px solid grey",
           borderLeft: teamAColor,
           backgroundColor: highlightTeam === game.teamA.name ? "#ededef" : "",
           boxShadow:
@@ -54,32 +38,18 @@ export const Slot = forwardRef((props, ref) => {
         onMouseOut={() => onHover(false)}
       >
         {game.teamA.icon && (
-          <div
-            style={{
-              width: "16px",
-              height: "16px",
-              display: "flex",
-              marginRight: "5px",
-            }}
-          >
+          <div className="slot_team--icon">
             {game.teamA.icon}
           </div>
         )}
-        <span
-          style={{
-            flex: "1 auto",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
+        <span className="slot_team--name">
           {game.teamA.name}
         </span>
         <span>{game.teamA.result}</span>
       </div>
       <div
+        className="slot_team"
         style={{
-          ...secondTeamStyle,
           borderLeft: teamBColor,
           backgroundColor: highlightTeam === game.teamB.name ? "#ededef" : "",
           boxShadow:
@@ -91,25 +61,11 @@ export const Slot = forwardRef((props, ref) => {
         onMouseOut={() => onHover(false)}
       >
         {game.teamB.icon && (
-          <div
-            style={{
-              width: "16px",
-              height: "16px",
-              display: "flex",
-              marginRight: "5px",
-            }}
-          >
+          <div className="slot_team--icon">
             {game.teamB.icon}
           </div>
         )}
-        <span
-          style={{
-            flex: "1 auto",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
+        <span className="slot_team--name">
           {game.teamB.name}
         </span>
         <span>{game.teamB.result}</span>
