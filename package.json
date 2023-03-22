@@ -41,5 +41,17 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/cold6lanket/react-simple-bracket.git"
-  }
+  },
+  "keywords": [
+    "react",
+    "tournament",
+    "tournaments",
+    "bracket",
+    "brackets",
+    "playoffs",
+    "play-off",
+    "playoff bracket",
+    "games",
+    "challonge"
+  ]
 }

@@ -11,7 +11,6 @@ const slotWrapperStyle = {
 const firstTeamStyle = {
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-between",
   borderBottom: "1px solid grey",
   padding: "0 4px"
 };
@@ -19,15 +18,14 @@ const firstTeamStyle = {
 const secondTeamStyle = {
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-between",
   padding: "0 4px"
 };
 
 export const Slot = forwardRef((props, ref) => {
   const {
     game = {
-      teamA: { name: "Slot 1", result: null },
-      teamB: { name: "Slot 2", result: null }
+      teamA: { name: "Slot 1", result: null, icon: null },
+      teamB: { name: "Slot 2", result: null, icon: null }
     },
     onHover = (f) => f,
     highlightTeam
@@ -50,12 +48,33 @@ export const Slot = forwardRef((props, ref) => {
           boxShadow:
             highlightTeam === game.teamA.name
               ? "0 1px 5px 0 rgba(0,0,0,.16), 0 1px 2px 0 rgba(0,0,0,.08), inset 0 0 0 2px #2d6da3"
-              : ""
+              : "",
         }}
         onMouseOver={() => onHover(game.teamA.name)}
         onMouseOut={() => onHover(false)}
       >
-        <span>{game.teamA.name}</span>
+        {game.teamA.icon && (
+          <div
+            style={{
+              width: "16px",
+              height: "16px",
+              display: "flex",
+              marginRight: "5px",
+            }}
+          >
+            {game.teamA.icon}
+          </div>
+        )}
+        <span
+          style={{
+            flex: "1 auto",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {game.teamA.name}
+        </span>
         <span>{game.teamA.result}</span>
       </div>
       <div
@@ -66,12 +85,33 @@ export const Slot = forwardRef((props, ref) => {
           boxShadow:
             highlightTeam === game.teamB.name
               ? "0 1px 5px 0 rgba(0,0,0,.16), 0 1px 2px 0 rgba(0,0,0,.08), inset 0 0 0 2px #2d6da3"
-              : ""
+              : "",
         }}
         onMouseOver={() => onHover(game.teamB.name)}
         onMouseOut={() => onHover(false)}
       >
-        <span>{game.teamB.name}</span>
+        {game.teamB.icon && (
+          <div
+            style={{
+              width: "16px",
+              height: "16px",
+              display: "flex",
+              marginRight: "5px",
+            }}
+          >
+            {game.teamB.icon}
+          </div>
+        )}
+        <span
+          style={{
+            flex: "1 auto",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {game.teamB.name}
+        </span>
         <span>{game.teamB.result}</span>
       </div>
     </div>
